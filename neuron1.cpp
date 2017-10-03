@@ -70,9 +70,7 @@ void Neuron::setRefractory(bool state) {
 
 //METHODS
 void Neuron::updateMembranePotential(double current, double h, double tho, double resistance) {
-    setMembranePotential(
-                         exp(-h/tho)*membrane_potential_ + current*resistance*(1-exp(-h/tho))
-                         );
+    setMembranePotential(exp(-h/tho)*membrane_potential_ + current*resistance*(1-exp(-h/tho)));
 }
 
 void Neuron::update(double t_start, double t_stop,
@@ -91,7 +89,7 @@ void Neuron::update(double t_start, double t_stop,
  while (simTime < t_stop) {
      
    //Value of the current according to simTime
-   if ((simTime > inf)and(simTime < sup)) {
+   if ((simTime >= inf)and(simTime < sup)) {
      input_current = strenghtCurrent;
    } else { input_current = 0.0; }
 
@@ -110,8 +108,8 @@ void Neuron::update(double t_start, double t_stop,
       increment = 0.0;
    }
 
-   updateMembranePotential(input_current, h, tho, resistance);
    updateAllMembranePotentials(membrane_potential_);
+   updateMembranePotential(input_current, h, tho, resistance);
    
    simTime += h;
      

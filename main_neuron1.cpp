@@ -3,7 +3,7 @@
 #include <sstream>
 
 int main() {
-  Neuron neuron(0.0, 0.1);
+  Neuron neuron(0.0, 100);
   double external_current(200); //200pA
   double time_interval(20); //correspond to tho
   double h(1);
@@ -13,10 +13,10 @@ int main() {
   double t_stop(500);
 
   /*when time will be between inf and sup, the current I will be equal to
-  extrenal current, otherwise it will be 0.
+  external current, otherwise it will be 0.
   inf and sup must be between t_start and t_stop*/
   double inf(20);
-  double sup(40);
+  double sup(50);
   neuron.update(t_start, t_stop, inf, sup, external_current, h, time_interval, R);
     
     ofstream out;
@@ -36,6 +36,7 @@ int main() {
      out << potentialAsString << endl;
      out.close();
     }
-    
+
+
   return 0;
 }
