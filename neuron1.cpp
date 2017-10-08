@@ -2,11 +2,8 @@
 
 
 //CONSTRUCTOR
-Neuron::Neuron() : membrane_potential_(0.0), nb_spikes_(0), refractory_(false)
-{
-  spikes_times_ = vector<double>(0);
-  allMembranePotentials_ = vector<double>(0);
-}
+Neuron::Neuron() : membrane_potential_(V_INI), nb_spikes_(0), refractory_(false)
+{}
 
 /**********************************************************************************/
 
@@ -82,8 +79,11 @@ void Neuron::update(double t_start, double t_stop,
    } else { input_current = 0.0; }
 
    if (isRefractory()) {
-     membrane_potential_ = V_RESET;
-     if (increment >= REFRAC_TIME) setRefractory(false);
+     membrane_potential_ = V_REFRAC;
+     if (increment > REFRAC_TIME) {
+       setRefractory(false);
+       membrane_potential_ = V_RESET;
+     }
 
    } else if (membrane_potential_ > V_THRS) {
      updateSpikesTimes(simTime);
